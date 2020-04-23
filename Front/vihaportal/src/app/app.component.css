@@ -1,0 +1,67 @@
+/*=================== Search Bar ======================*/
+
+*:focus {
+    outline: none;
+}
+
+#searchBar{
+    border: 2px solid;
+    border-radius: 1rem;
+    height: 2.5rem !important;
+    box-shadow: 3px 3px 2.5px grey;
+}
+
+#searchBar:hover{
+    background-color: khaki;
+    border: 0;
+    transition: step-start;
+}
+
+hr {
+    margin-top: 0rem;
+    margin-bottom: 0px !important;
+    border: 1px solid;
+  }
+
+/*======================= Nav Bar ===========================*/
+
+@import url('http://getbootstrap.com/dist/css/bootstrap.css');
+
+.nav a {
+	color: #444;
+	display: block;
+	font: normal 13px/50px Arial, Helvetica, sans-serif;
+	padding: 0 25px;
+	text-align: center;
+	text-decoration: none;
+	-webkit-transition: all .25s ease;
+	-moz-transition: all .25s ease;
+	-ms-transition: all .25s ease;
+	-o-transition: all .25s ease;
+	transition: all .25s ease;
+}
+
+
+.nav a:hover{
+    background: #01abf8;
+}
+.dropdown li:hover a {
+	color: #DCDCDC;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+    transition-timing-function: 1sec;
+    background: #01abf8;
+ }
+
+ .dropdown>.dropdown-toggle:active {
+    /*Without this, clicking will make it sticky*/
+      pointer-events: none;
+  }
+
+
+/* * {
+    outline: 1px solid red;
+   } */
