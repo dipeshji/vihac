@@ -1,0 +1,17 @@
+
+/* Main container */
+.container-fluid{
+    padding-top: 138px;
+}
+
+/* carousel */
+
+ .imgc {
+    height: 85vh;
+  }
+
+  @media screen and (max-width: 1080px) and (min-width: 320px){
+    .img-responsive {
+        height: auto;
+      }
+  }

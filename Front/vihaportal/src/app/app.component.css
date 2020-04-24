@@ -1,3 +1,6 @@
+/* * {
+    outline: 1px solid red;
+   } */
 /*=================== Search Bar ======================*/
 
 *:focus {
@@ -25,43 +28,38 @@ hr {
 
 /*======================= Nav Bar ===========================*/
 
-@import url('http://getbootstrap.com/dist/css/bootstrap.css');
+/* @import url('http://getbootstrap.com/dist/css/bootstrap.css'); */
 
-.nav a {
-	color: #444;
-	display: block;
-	font: normal 13px/50px Arial, Helvetica, sans-serif;
-	padding: 0 25px;
-	text-align: center;
-	text-decoration: none;
-	-webkit-transition: all .25s ease;
-	-moz-transition: all .25s ease;
-	-ms-transition: all .25s ease;
-	-o-transition: all .25s ease;
-	transition: all .25s ease;
+.nav-item a{
+    color: khaki;
 }
 
+.nav-item li a{
+    color: black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
 
-.nav a:hover{
-    background: #01abf8;
+.navbar{
+    background-image: url('../assets/picture-2sahding.png');
+    /* opacity: 0.6; */
+}
+.nav-item a:hover{
+    background: khaki;
 }
 .dropdown li:hover a {
-	color: #DCDCDC;
+    /* color: #DCDCDC; */
+    background-color: khaki;
 }
 
 .dropdown:hover .dropdown-menu {
     display: block;
     margin-top: 0;
-    transition-timing-function: 1sec;
     background: #01abf8;
  }
 
  .dropdown>.dropdown-toggle:active {
-    /*Without this, clicking will make it sticky*/
+    /* Without this, clicking will make it sticky */
       pointer-events: none;
   }
 
 
-/* * {
-    outline: 1px solid red;
-   } */
