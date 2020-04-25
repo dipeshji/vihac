@@ -7,6 +7,16 @@
     outline: none;
 }
 
+#langlogo:hover{
+    display: block;
+    border-radius: .5rem;
+    background-color: black;
+}
+
+#langlogo:active{
+    background-color: khaki;
+}
+
 #searchBar{
     border: 2px solid;
     border-radius: 1rem;
@@ -25,6 +35,29 @@ hr {
     margin-bottom: 0px !important;
     border: 1px solid;
   }
+
+  .cross {
+    float: right;
+    margin-right: 18px;
+    margin-top: -36px;
+    position: relative;
+    z-index: 2;
+    color: black;
+}
+
+/* ============Dropdown search box================= */
+
+.searchDropdown{
+    z-index: 1;
+    top: 40px;
+    border-right: solid;
+    border-left: solid;
+    border-bottom: solid;
+}
+
+#userList{
+    list-style: none;
+}
 
 /*======================= Nav Bar ===========================*/
 

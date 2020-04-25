@@ -6,17 +6,20 @@
       </div>
       <div class="col-8 col-sm-8 my-auto">
         <input type="text" id="searchBar" class="w-100 pl-2" placeholder="Search Member by ID or Name"
-          aria-hidden="false" [(ngModel)]="searchedUser" (keypress)="searchUser($event.target.value)">
-        <div class="dropdown bg-dark w-100" *ngIf="match">
+          aria-hidden="false" [ngStyle]="match && searchChange" (keyup)="searchUser($event)"
+          [(ngModel)]="searchedUser">
+        <i class="fa fa-times float-right fa-2x cross" aria-hidden="true" (click)="clear($event)" *ngIf="match"></i>
+
+        <div class="searchDropdown w-100 position-absolute bg-light" *ngIf="match">
           <ul>
-            <li *ngFor="let user of matchedUser">
+            <li *ngFor="let user of matchedUser" id="userList">
               {{user}}
             </li>
           </ul>
         </div>
       </div>
       <div class="col-2 col-sm-1 my-auto">
-        <img src="../assets/lang.svg" alt="lang" class="float-right">
+        <img src="../assets/lang.svg" alt="language" class="float-right" id="langlogo">
       </div>
       <div class="col-2 my-auto d-none d-sm-inline text-center">
         <button class="btn btn-success"> Login/SignUp </button>

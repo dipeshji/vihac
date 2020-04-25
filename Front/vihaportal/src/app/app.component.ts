@@ -10,9 +10,9 @@ import { Observable, Subscription } from 'rxjs';
 export class AppComponent implements OnInit {
   title = 'vihaportal';
   navOpen = false;
-  searchedUser: any;
+  searchedUser = null;
   matchedUser = [];
-  match=false;
+  match = false;
 
   fakeUser = {
     'user1': 'Dipesh',
@@ -24,26 +24,50 @@ export class AppComponent implements OnInit {
     'user7': 'Palak',
     'user8': 'Pachak',
     'user9': 'Mahesh',
-    'user10': 'Mahak'
+    'user10': 'Mahak',
+    'user11': 'Deepak'
   }
 
   Users = new Observable(observer => {
     let value = Object.values(this.fakeUser)
     value.map((user) => {
-      user.includes(this.searchedUser) ? this.matchedUser.push(user) : null;
+      user.includes(this.searchedUser)
+        ? this.matchedUser.push(user)
+        : null;
     })
-    return this.matchedUser.length !== null ? observer.next(this.matchedUser) : null;
+    this.matchedUser.length !== null ? observer.next(this.matchedUser) : null;
   })
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.matchedUser = []
+  }
 
   toggleNavbar() {
     this.navOpen = !this.navOpen;
   }
-  searchUser(user) {
+
+  clear(event) {
+    this.searchedUser = '';
+    this.match = false;
     this.matchedUser = [];
-    this.Users.subscribe(value => {
-      if (value[0] !== null) this.match = true;
-    });
+  }
+  searchUser(event) {
+    this.matchedUser = [];
+    if (event.key !== "Shift" && this.searchedUser !== '') {
+      this.Users.subscribe(value => {
+        if (value[0] !== null) this.match = true;
+      });
+    } else {
+      this.match = false;
+    }
+  }
+
+  searchChange = {
+    'border-radius': '0',
+    'border-bottom': '0',
+    'border-right': 'solid',
+    'border-left': 'solid',
+    'border-top': 'solid',
+    'background-color': 'white'
   }
 }
