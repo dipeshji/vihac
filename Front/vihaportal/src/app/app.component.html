@@ -6,8 +6,7 @@
       </div>
       <div class="col-8 col-sm-8 my-auto">
         <input type="text" id="searchBar" class="w-100 pl-2" placeholder="Search Member by ID or Name"
-          aria-hidden="false" [ngStyle]="match && searchChange" (keyup)="searchUser($event)"
-          [(ngModel)]="searchedUser">
+          aria-hidden="false" [ngStyle]="match && searchChange" (keyup)="searchUser($event)" [(ngModel)]="searchedUser">
         <i class="fa fa-times float-right fa-2x cross" aria-hidden="true" (click)="clear($event)" *ngIf="match"></i>
 
         <div class="searchDropdown w-100 position-absolute bg-light" *ngIf="match">
@@ -22,7 +21,7 @@
         <img src="../assets/lang.svg" alt="language" class="float-right" id="langlogo">
       </div>
       <div class="col-2 my-auto d-none d-sm-inline text-center">
-        <button class="btn btn-success"> Login/SignUp </button>
+        <button class="btn btn-success" (click)="loginsignupDialog()"> Login/SignUp </button>
       </div>
     </div>
   </div>
@@ -33,7 +32,7 @@
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <button class="btn-sm btn-success d-xs-block d-sm-none">
+    <button class="btn-sm btn-success d-xs-block d-sm-none" (click)="loginsignupDialog()">
       Login/SignUp
     </button>
     <div class="collapse navbar-collapse" [ngClass]="{'show': navOpen}" id="navbarNavDropdown">

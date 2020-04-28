@@ -1,0 +1,45 @@
+<div class="w-100 Login-Register" [formGroup]="loginForm">
+    <div class="row">
+        <div class="col-12">
+            <i class="fa fa-times float-right fa-2x" aria-hidden="true" (click)="close()"></i>
+        </div>
+        <div class="col-12 text-center">
+            <h1 style="font-weight: bold;">Login</h1>
+            <hr>
+        </div>
+        <div class="col-12 mt-3">
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label style="font-weight: bold;">Member ID</mat-label>
+                <input matInput formControlName="memberId" required placeholder="Enter Member ID">
+            </mat-form-field>
+        </div>
+        <div class="col-12" *ngIf="!user">
+            <button class="float-right" mat-stroked-button color="primary" (click)="getOTP()">Get
+                OTP</button>
+        </div>
+        <div class="col-12">
+            <div *ngIf="user">
+                <span>
+                    <p>An OTP has been sent to your register mobile number 9009809339</p>
+                </span>
+                <mat-form-field class="w-100" appearance="fill">
+                    <mat-label style="font-weight: bold;">OTP</mat-label>
+                    <input matInput formControlName="OTP" required placeholder="Enter OTP" type="number">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-12" *ngIf="user">
+            <span class="float-right" style="color: blue;">RESEND OTP 00:{{OTPresendTime}}</span>
+        </div>
+        <div class="col-12 mt-5">
+            <button class="float-right" mat-raised-button color="primary" *ngIf="user" (click) = "login">Login</button>
+        </div>
+        <div class="col-12 float-left" style="margin-bottom:0px;">
+            <span>Need help in logging in? <a href="" style="font-weight: bold;">Click Here</a></span> 
+        </div>
+        <div class="col-12">
+            <span>New to PJS? <a href="" style="font-weight: bold;">SignUp now</a></span>
+        </div>
+    </div>
+</div>
+

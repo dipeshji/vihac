@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { LoginDialogComponent } from './initialComponent/login-dialog/login-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +15,8 @@ export class AppComponent implements OnInit {
   searchedUser = null;
   matchedUser = [];
   match = false;
+
+  constructor(public dialog: MatDialog) { }
 
   fakeUser = {
     'user1': 'Dipesh',
@@ -60,6 +64,18 @@ export class AppComponent implements OnInit {
     } else {
       this.match = false;
     }
+  }
+
+  loginsignupDialog() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      id: 1
+    };
+    const dialogRef = this.dialog.open(LoginDialogComponent);
   }
 
   searchChange = {
