@@ -4,11 +4,11 @@ import { HomeComponent } from '../app/initialComponent/home/home.component';
 
 
 const routes: Routes = [
-  { path:'', component: HomeComponent },
+  { path: '', component: HomeComponent },
   {
     path: 'user',
-    loadChildren: () => import('./modules/login-signup/login-signup.module')
-      .then(loadModule => loadModule.LoginSignupModule)
+    loadChildren: () => import('./modules/signup/signup.module')
+      .then(loadModule => loadModule.SignupModule)
   }
 ];
 

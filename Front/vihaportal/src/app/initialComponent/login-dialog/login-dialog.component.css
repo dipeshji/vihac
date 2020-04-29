@@ -1,0 +1,22 @@
+/* Login Help */
+
+#loginProb{
+    max-height: 56vh;
+}
+
+#loginProb span{
+    font-size: large;
+    font-weight: bold;
+}
+
+#loginProb span:hover{
+    color: blue;
+    font-size: x-large;
+}
+ /* Login Help 3 */
+
+ #helpLogin .thirdPoint{
+     border: solid;
+ }
+
+

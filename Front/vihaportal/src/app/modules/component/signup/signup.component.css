@@ -1,0 +1,43 @@
+.jumbotron{
+    margin-top: 114px;
+    background-color: white;
+}
+
+/* ============side nav============== */
+.nav-bar{
+    border: 1px solid black;
+    background-image: url('../../../../assets/picture-2sahding.png');
+}
+
+.nav-bar li{
+    list-style: none;
+}
+
+.nav-bar span{
+    display: block;
+    color: khaki;
+}
+
+.nav-bar span:hover{
+    color: black;
+}
+
+.nav-bar li:hover{
+    font-size: larger;
+    background-color: #01abf8;
+}
+
+.nav-bar li:active{
+    background-color: black;
+}
+
+.nav-bar span:active{
+    color: khaki;
+}
+
+
+/* ==============Form=============== */
+.form{
+    border: 1px solid black;
+    border-left: none;
+}

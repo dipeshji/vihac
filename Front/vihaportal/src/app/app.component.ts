@@ -75,7 +75,44 @@ export class AppComponent implements OnInit {
     dialogConfig.data = {
       id: 1
     };
-    const dialogRef = this.dialog.open(LoginDialogComponent);
+    const dialogRef = this.dialog.open(LoginDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data.id === 1) {
+        dialogConfig.data = {
+          id: 2
+        }
+        const dialogRef = this.dialog.open(LoginDialogComponent, dialogConfig)
+        dialogRef.afterClosed().subscribe(data => {
+          if (data.id === 1) {
+            dialogConfig.data = {
+              id: 3
+            }
+            const dialogRef = this.dialog.open(LoginDialogComponent, dialogConfig);
+            console.log(data.data);
+            
+          } else if (data.id === 2) {
+            dialogConfig.data = {
+              id: 4
+            }
+            const dialogRef = this.dialog.open(LoginDialogComponent, dialogConfig);
+            console.log(data.data);
+          }else if(data.id===3){
+            dialogConfig.data = {
+              id: 5
+            }
+            const dialogRef = this.dialog.open(LoginDialogComponent,dialogConfig);
+            console.log(data.data);
+          }else if(data.id===4){
+            dialogConfig.data = {
+              id: 6
+            }
+            const dialogRef = this.dialog.open(LoginDialogComponent,dialogConfig);
+            console.log(data.data);
+          }
+        })
+      }
+    })
   }
 
   searchChange = {
