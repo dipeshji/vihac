@@ -8,11 +8,16 @@ import { Component, OnInit } from '@angular/core';
 export class SignupComponent implements OnInit {
 
   listactiveStatus = {
-    'background-color': '#01abf8'
+    'background-color': '#01abf8',
+    'margin-left': '-1rem',
+    'display':'block',
+    'margin-right': '-1rem'
   }
   spanactiveStatus = {
-    'font-size': 'larger',
-    'color': 'black'
+    'font-size': '18px',
+    'color': 'black',
+    'padding-left': '1.5rem',
+    'padding-right': '1.5rem'
   }
 
 
@@ -28,7 +33,7 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  activate(id) {
+  activateForm(id) {
     if (id === 1) {
       this.setStatus('persionalDetails');
     } else if (id === 2) {

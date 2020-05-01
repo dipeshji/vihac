@@ -16,15 +16,21 @@
 .nav-bar span{
     display: block;
     color: khaki;
+    font-size: 2vh;
+    font-weight: normal;
 }
 
 .nav-bar span:hover{
     color: black;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }
 
 .nav-bar li:hover{
     font-size: larger;
     background-color: #01abf8;
+    margin-left: -1rem;
+    margin-right: -1rem;
 }
 
 .nav-bar li:active{
@@ -41,3 +47,6 @@
     border: 1px solid black;
     border-left: none;
 }
+
+
+

@@ -73,8 +73,9 @@ export class AppComponent implements OnInit {
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
-      id: 1
+      id: 1,
     };
+    dialogConfig.width = "350px";
     const dialogRef = this.dialog.open(LoginDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router'
@@ -17,8 +17,8 @@ export class LoginDialogComponent implements OnChanges, OnInit {
   user = false;
   OTPresendTime = 60;
   OTPinterval = 1000;
-  forgottenMemberid: any;
-  registeredEmailid: any;
+  forgottenMemberid = new FormControl(null, [Validators.required]);
+  registeredEmailid = new FormControl(null, [Validators.required, Validators.email]);
 
   toggleInputs = {
     "memberId": false,
@@ -103,7 +103,7 @@ export class LoginDialogComponent implements OnChanges, OnInit {
   }
 
   // ==============Sign Up=====================
-  SignUp() { 
+  SignUp() {
     this.dialogRef.close();
     this.router.navigate(['user'])
   }
@@ -125,11 +125,24 @@ export class LoginDialogComponent implements OnChanges, OnInit {
   // ============All data submit for login problem(1,2,3,4)===============
   submit(id) {
     if (id === 1) {
-      console.log(this.forgottenMemberid);
-      this.dialogRef.close({ "id": 1, "data": this.forgottenMemberid });
+      if (this.forgottenMemberid.valid) {
+        this.dialogRef.close({ "id": 1, "data": this.forgottenMemberid.value });
+      } else {
+        let config = new MatSnackBarConfig();
+        config.duration = 5000;
+        config.panelClass = ['red-snackbar']
+        this._snackBar.open("Member ID is required", 'Close', config);
+      }
+
     } else if (id === 2) {
-      console.log(this.registeredEmailid);
-      this.dialogRef.close({ "id": 2, "data": this.registeredEmailid });
+      if(this.registeredEmailid.valid){
+        this.dialogRef.close({ "id": 2, "data": this.registeredEmailid });
+      }else{
+        let config = new MatSnackBarConfig();
+        config.duration = 5000;
+        config.panelClass = ['red-snackbar']
+        this._snackBar.open("Please enter valid email ID", 'Close', config);
+      }
     } else if (id === 3) {
       if (!this.registerMobno.valid) {
         let config = new MatSnackBarConfig();

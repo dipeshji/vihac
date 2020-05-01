@@ -6,17 +6,17 @@
 
 #loginProb span{
     font-size: large;
-    font-weight: bold;
+    display: list-item;
 }
 
 #loginProb span:hover{
     color: blue;
-    font-size: x-large;
 }
  /* Login Help 3 */
 
  #helpLogin .thirdPoint{
      border: solid;
  }
+
 
 
