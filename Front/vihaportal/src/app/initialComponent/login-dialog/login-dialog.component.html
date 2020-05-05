@@ -52,27 +52,45 @@
             <i class="fa fa-times float-right fa-2x" aria-hidden="true" (click)="close()"></i>
         </div>
         <div class="col-12">
-            <span (click)="openInput({id:1})">I have forgotten member id.</span>
-            <br>
-            <input class="ml-4 mt-2 w-auto" placeholder="Enter your registered mobile number" type="text" name="" id=""
-                *ngIf="toggleInputs?.memberId" [formControl]="forgottenMemberid">
+            <div class="row">
+                <div class="col-12">
+                    <span (click)="openInput({id:1})">I have forgotten member id.</span>
+                </div>
+                <div class="col-8 mt-2 mb-1">
+                    <input class="mt-1 mb-1" placeholder="Enter your registered mobile number" type="text" name="" id=""
+                        *ngIf="toggleInputs?.memberId" [formControl]="forgottenMemberid"> </div>
+                <div class="col-4 mt-2 mb-1">
+                    <button class="d-inline ml-3" *ngIf="toggleInputs?.memberId" mat-raised-button color="primary"
+                        (click)="submit(1)">Submit</button>
+                </div>
+                <p *ngIf="forgottenMemberid.invalid && toggleInputs?.memberId" [ngClass]="'errorMessage'">Member Id is
+                    required</p>
 
-            <button class="d-inline ml-3 mt-0 mt-xs-3" *ngIf="toggleInputs?.memberId" mat-raised-button color="primary"
-                (click)="submit(1)">Submit</button>
+            </div>
         </div>
         <!-- =============forgot memberId and register mobile number========== -->
         <div class="col-12 mt-3">
-            <span (click)="openInput({id:2})">I have forgotten member id and registered mobile number.</span>
-            <br>
-            <input class="ml-4 mt-2 w-auto" placeholder="Enter your registered email Id" type="text" name="" id=""
-                *ngIf="toggleInputs?.registerMob" [formControl]="registeredEmailid">
-            <button class="d-inline ml-3 mt-0" *ngIf="toggleInputs?.registerMob" mat-raised-button color="primary"
-                (click)="submit(2)">Submit</button>
+            <div class="row">
+                <div class="col-12">
+                    <span (click)="openInput({id:2})">I have forgotten member id and registered mobile number.</span>
+                    <br>
+                </div>
+                <div class="col-8">
+                    <input class="mt-1 mb-1" placeholder="Enter your registered email Id" type="text" name="" id=""
+                        *ngIf="toggleInputs?.registerMob" [formControl]="registeredEmailid">
+                </div>
+                <div class="col-4">
+                    <button class="d-inline ml-3 mt-0" *ngIf="toggleInputs?.registerMob" mat-raised-button
+                        color="primary" (click)="submit(2)">Submit</button>
+                </div>
+                <p *ngIf="registeredEmailid.invalid && toggleInputs?.registerMob" [ngClass]="'errorMessage'">Email Id is
+                    required</p>
+            </div>
         </div>
         <!-- ===========update register mobile number============ -->
         <div class="col-12 mt-3">
             <span (click)="openInput({id:3})"> I wants to update my registered mobile number with new mobile
-                    number</span>
+                number</span>
             <br>
             <div [formGroup]="registerMobno" class="thirdPoint mt-3" *ngIf="toggleInputs?.updateRegMob">
                 <div class="row text-center">

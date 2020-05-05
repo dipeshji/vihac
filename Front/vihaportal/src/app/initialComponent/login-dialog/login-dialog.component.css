@@ -18,5 +18,11 @@
      border: solid;
  }
 
+ .errorMessage{
+     color: red;
+     margin-left: 12px;
+     
+ }
+
 
 

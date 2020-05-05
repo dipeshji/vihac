@@ -16,7 +16,7 @@
 .nav-bar span{
     display: block;
     color: khaki;
-    font-size: 2vh;
+    font-size: 17px !important;
     font-weight: normal;
 }
 
@@ -48,5 +48,55 @@
     border-left: none;
 }
 
+/* ========Personal Details Form========= */
+
+.head{
+    font-weight: bold;
+    font-size: 3vh;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
+}
+
+.gender{
+    padding-left: 14% !important;
+}
+
+/* @media only screen and (max-width: 600px){
+    #gender{
+        margin-left: 7px !important;
+    }
+    .gender{
+        margin-left: 22px !important;
+    }
+} */
 
 
+
+/* Upload image */
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.imagePreview img{
+    border: 3px solid cadetblue;
+    width: 40%;
+}
+
+.error{
+    border: 2px solid black;
+    background-color: orange;
+    color: black;
+}

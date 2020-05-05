@@ -3,8 +3,8 @@
         <div class="col-4 col-sm-2 nav-bar">
             <ul class="pl-0 pt-4 navbar-nav">
                 <li class="nav-item" (click)="activateForm(1)"
-                    [ngStyle]="loadForm?.persionalDetails && listactiveStatus">
-                    <span class="nav-link" [ngStyle]="loadForm?.persionalDetails && spanactiveStatus">Personal
+                    [ngStyle]="loadForm?.personalDetails && listactiveStatus">
+                    <span class="nav-link" [ngStyle]="loadForm?.personalDetails && spanactiveStatus">Personal
                         Details</span>
                 </li>
                 <li class="mt-3 nav-item" (click)="activateForm(2)"
@@ -24,8 +24,209 @@
                 </li>
             </ul>
         </div>
-        <div class="col-8 col-sm-10 form">
+        <div class="col-8 col-sm-10 form bg-light">
+            <!-- ====================Personal Details========================= -->
+            <div *ngIf="loadForm.personalDetails">
+                <p class="text-center mt-3" [ngClass]="'head'">Please Enter Personal Details</p>
+                <hr>
+                <div [formGroup]="personalDetails">
+                    <div class="row mt-3">
+                        <div class="col-12 text-center">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">First Name</mat-label>
+                                <input matInput formControlName="firstName" required placeholder="Enter first name">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 text-center">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">Middle Name</mat-label>
+                                <input matInput formControlName="middleName" required placeholder="Enter middle">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 text-center">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">Last Name</mat-label>
+                                <input matInput formControlName="lastName" required placeholder="Enter last name">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 text-center">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">Popular Name</mat-label>
+                                <input matInput formControlName="popularame" placeholder="Enter popular name">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 text-center">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">Date of Birth</mat-label>
+                                <input matInput [matDatepicker]="dp" formControlName="dob" placeholder="DD/MM/YYYY">
+                                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                                <mat-datepicker #dp></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 text-center">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">Birth Time</mat-label>
+                                <input matInput formControlName="birthTime" placeholder="Enter Birth Time">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 text-center">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">Birth Place</mat-label>
+                                <input matInput formControlName="birthPlace" placeholder="Enter Birth Place">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 my-3" [ngClass]="'gender'">
+                            <div class="d-inline-flex">
+                                <label style="font-weight: bold; font-size: larger; color: forestgreen">Gender</label>
+                            </div>
+                            <div class="d-inline-flex">
+                                <mat-radio-group aria-label="Select an option">
+                                    <mat-radio-button class="mx-4" labelPosition='before' (change)="radioChange($event)"
+                                        value="Male">Male
+                                    </mat-radio-button>
+                                    <mat-radio-button labelPosition='before' (change)="radioChange($event)"
+                                        value="Female">
+                                        Female
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="col-12"></div>
+                        <div class="col-12 my-3" [ngClass]="'gender'">
+                            <div class="d-inline-flex">
+                                <label style="font-weight: bold; font-size: larger; color: forestgreen">Status</label>
+                            </div>
+                            <div class="d-inline-flex">
+                                <mat-radio-group aria-label="Select an option">
+                                    <mat-radio-button class="mx-3 mx-sm-4" labelPosition='before'
+                                        (change)="radioChange($event)" value="Single">Single
+                                    </mat-radio-button>
+                                    <mat-radio-button labelPosition='before' (change)="radioChange($event)"
+                                        value="Married">
+                                        Married
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">Mobile Number</mat-label>
+                                <input type="number" matInput formControlName="mobileNumber" required
+                                    placeholder="Enter Mobile Number">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 text-center">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">Email Id</mat-label>
+                                <input matInput formControlName="emailId" required placeholder="Enter first name">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 text-center">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">Blood Group</mat-label>
+                                <mat-select formControlName="bloodGroup" required>
+                                    <mat-option>Blood Groups</mat-option>
+                                    <mat-option *ngFor="let bloodGroup of bloodGroups" [value]="bloodGroup">
+                                        {{bloodGroup}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 text-center">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">Height</mat-label>
+                                <input matInput formControlName="height" required placeholder="ie. 5'2''">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <button class="float-right my-2" mat-raised-button type="submit" [disabled]="!personalDetails.valid"
+                        (click)="onSubmit(1)">Save & Next></button>
+                </div>
+            </div>
+            <div *ngIf="loadForm.residentialDetails">
 
+            </div>
+            <!-- ======Educational & Occupational Details======= -->
+            <div *ngIf="loadForm.educationalOccupational">
+                <p class="text-center mt-3" [ngClass]="'head'">Please Enter Your Educational & Occupational Details</p>
+                <hr>
+                <div [formGroup]="eductaionalOccuptionalDetails">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="col-12 text-center">
+                                <mat-form-field appearance="fill" class="w-75">
+                                    <mat-label style="font-weight: bold; color: forestgreen;">Highest Education
+                                    </mat-label>
+                                    <input matInput formControlName="highestEducation" required placeholder="">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-12 text-center">
+                                <mat-form-field appearance="fill" class="w-75">
+                                    <mat-label style="font-weight: bold; color: forestgreen;">Occuption</mat-label>
+                                    <mat-select formControlName="occupation" required>
+                                        <mat-option>Occupation</mat-option>
+                                        <mat-option *ngFor="let occuption of occupations" [value]="occuption">
+                                            {{occuption}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-12 text-center">
+                                <mat-form-field appearance="fill" class="w-75">
+                                    <mat-label style="font-weight: bold; color: forestgreen;">please add details
+                                    </mat-label>
+                                    <input matInput formControlName="pleaseAddDetails" required placeholder="">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-12 text-center">
+                                <mat-form-field appearance="fill" class="w-75">
+                                    <mat-label style="font-weight: bold; color: forestgreen;">Income</mat-label>
+                                    <mat-select formControlName="income" required>
+                                        <mat-option>Income Range(In Lakhs)</mat-option>
+                                        <mat-option *ngFor="let range of incomeRange" [value]="range">
+                                            {{range}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <button class="float-right my-2" mat-raised-button type="submit"
+                                [disabled]="!eductaionalOccuptionalDetails.valid" (click)="onSubmit(3)">Save &
+                                Next></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- =======Upload Photo============ -->
+            <div *ngIf="loadForm.uploadPhoto">
+                <p class="text-center mt-3" [ngClass]="'head'">Please Upload Your Photo</p>
+                <hr>
+                <div [formGroup]="uploadPhoto">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <h4>Note: Profile photo size must be 1mb or less.</h4>
+                            <div class="imagePreview ml-2" *ngIf="imageURL && imageURL !== ''">
+                                <img [src]="imageURL" alt="Profile Image">
+                            </div>
+                            <div class="fileUpload btn btn-primary">
+                                <span style="font-size: 2vh;">Browse & Upload</span>
+                                <input type="file" accept="image/*" class="upload" (change)="showPreview($event)" />
+                            </div>
+                        </div>
+                        <div class="col-12"></div>
+                        <div *ngIf="allValid" class="col-12 col-sm-6 ml-sm-3 mt-2" [ngClass]="'error'">
+                            <div class="pt-1 pb-1">
+                                <i class="fa fa-times-circle-o float-right" aria-hidden="true"
+                                    (click)="closeError()"></i>
+                                <span>Please check your forms, Either you have not filled all required<span
+                                        style="color: red;">*</span> details or they might be
+                                    invalid.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="float-right my-2" mat-raised-button type="submit" [disabled]="!uploadPhoto.valid"
+                    (click)="onSubmit(4)">Done</button>
+            </div>
         </div>
     </div>
 </div>
