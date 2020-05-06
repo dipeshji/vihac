@@ -1,8 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const register = require('../model/register');
 
-router.get('/registerUser', (req,res)=>{
-    
+router.get('/registeruser', (req, res) => {
+
 });
+
+router.get('/useraddress', (req, res) => {
+    let pinCode = req.query.pinCode;
+    register.getuseraddress(pinCode,(err,address)=>{
+        if(!err) res.json(address);
+        else res.status(404).json(err);
+    });
+})
 
 module.exports = router;
