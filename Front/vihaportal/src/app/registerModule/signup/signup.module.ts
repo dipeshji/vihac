@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 import { SignupRoutingModule } from './signup-routing.module';
 import { SignupComponent } from '../component/signup/signup.component';
@@ -28,7 +30,8 @@ import { SignupComponent } from '../component/signup/signup.component';
     MatButtonModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ]
 })
 export class SignupModule { }

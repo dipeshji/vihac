@@ -1,9 +1,12 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray, AbstractControl } from '@angular/forms';
 import { MAT_MOMENT_DATE_FORMATS, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
+import { RegisterService } from '../../services/register.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+
 
 const moment = _rollupMoment || _moment;
 
@@ -33,6 +36,7 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
+
 export class SignupComponent implements OnInit, OnChanges {
 
   userRegisterationForm = new FormArray([]);
@@ -42,6 +46,10 @@ export class SignupComponent implements OnInit, OnChanges {
   uploadPhoto: FormGroup;
   imageURL: string;
   allValid = false;
+  pinCodePattern = "[0-9]{6}";
+  town = [];
+  state = [];
+  spinner = false;
   bloodGroups = ["A-positive", "A-negative", "B-positive", "B-negative", "AB-positive", "AB-negative", "O-positive", "O-negative"];
   occupations = ["Job", "Bussiness", "House Wife", "Student"];
   incomeRange = ["1 to 2", "2 to 4", "4 to 10", "10 to 20", "Above 20"];
@@ -67,7 +75,7 @@ export class SignupComponent implements OnInit, OnChanges {
     "uploadPhoto": false
   }
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private register: RegisterService, private _snackBar: MatSnackBar, ) { }
 
   ngOnChanges() { }
 
@@ -96,11 +104,10 @@ export class SignupComponent implements OnInit, OnChanges {
     this.residentialDetails = this
       .formBuilder
       .group({
-        country: [null, [Validators.required]],
-        state: [null, [Validators.required]],
-        nameOfctw: [null, [Validators.required]],
-        address: [null, [Validators.required]],
-        pinCode: [null, Validators.required]
+        pinCode: [null, [Validators.compose([Validators.minLength(6), Validators.maxLength(6), Validators.required, Validators.pattern(this.pinCodePattern)])]],
+        state: [{ value: null, disabled: true }, [Validators.required]],
+        nameOfctv: [{ value: null, disabled: true }, [Validators.required]],
+        address: [null, [Validators.required, Validators.minLength(10)]],
       })
 
     this.eductaionalOccuptionalDetails = this
@@ -163,12 +170,13 @@ export class SignupComponent implements OnInit, OnChanges {
           .format('DD/MM/YYYY');
       this.userRegisterationForm.push(this.personalDetails);
     } else if (id === 2) {
+      this.residentialDetails.controls['pinCode'].valid
       this.userRegisterationForm.push(this.residentialDetails);
     } else if (id === 3) {
       this.userRegisterationForm.push(this.eductaionalOccuptionalDetails);
     } else if (id === 4) {
       this.allFormsValid();
-      if(this.allValid){
+      if (this.allValid) {
         this.userRegisterationForm.push(this.personalDetails);
       }
     }
@@ -204,12 +212,49 @@ export class SignupComponent implements OnInit, OnChanges {
     this.personalDetails.valid && this.eductaionalOccuptionalDetails
       ? this.allValid = false
       : this.allValid = true;
-      setTimeout(()=>{
-        this.allValid = false;
-      },5000)
+    setTimeout(() => {
+      this.allValid = false;
+    }, 5000)
   }
 
-  closeError(){
+  closeError() {
     this.allValid = false;
+  }
+
+  isValid(controlName) {
+    return this.residentialDetails.get(controlName).invalid && this.residentialDetails.get(controlName).touched;
+  }
+
+  getAddress(event) {
+    if ((this.residentialDetails.controls['pinCode'].valid)) {
+      this.spinner = true;
+      this.state = [];
+      this.town = [];
+      let pinCode = this.residentialDetails.controls['pinCode'].value;
+      this.register.getUserAddress(pinCode).subscribe(address => {
+        if (address.status === 200) {
+          this.spinner = false;
+          this.residentialDetails.controls['state'].enable();
+          this.residentialDetails.controls['nameOfctv'].enable();
+          address.address.state.filter(element => {
+            this.state.push(element);
+          })
+          address.address.town.filter(element => {
+            this.town.push(element);
+          })
+
+        } else {
+          this.spinner = false;
+          let config = new MatSnackBarConfig();
+          config.duration = 5000;
+          config.panelClass = ['red-snackbar'];
+          var msg = address.msg;
+          if(msg === undefined) msg = "Some error occured, please try again." 
+          this._snackBar.open(msg, 'Close', config);
+        }
+
+      })
+    }
+
   }
 }

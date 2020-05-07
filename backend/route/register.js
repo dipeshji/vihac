@@ -8,9 +8,10 @@ router.get('/registeruser', (req, res) => {
 
 router.get('/useraddress', (req, res) => {
     let pinCode = req.query.pinCode;
+    
     register.getuseraddress(pinCode,(err,address)=>{
-        if(!err) res.json(address);
-        else res.status(404).json(err);
+        if(!err) res.json({address, "status": 200});
+        else res.json(err);
     });
 })
 

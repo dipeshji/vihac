@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class EnvService {
 
-  public apiUrl = '';
+  public apiUrl = 'http://localhost:4000';
 
   // Whether or not to enable debug mode
   public enableDebug = false;

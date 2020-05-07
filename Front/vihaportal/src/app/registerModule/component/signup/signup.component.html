@@ -143,8 +143,64 @@
                         (click)="onSubmit(1)">Save & Next></button>
                 </div>
             </div>
+            <!-- =========Residential Details============== -->
             <div *ngIf="loadForm.residentialDetails">
+                <p class="text-center mt-3" [ngClass]="'head'">Please Enter Residential Details</p>
+                <hr>
+                <div [formGroup]="residentialDetails">
+                    <div class="row text-center">
+                        <div class="col-12">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">Pin Code
+                                </mat-label>
+                                <i class="fa fa-spinner fa-spin float-right" style="font-size:24px; color:green"
+                                    *ngIf="spinner"></i>
 
+                                <input (keyup)="getAddress($event)" matInput formControlName="pinCode" required
+                                    placeholder="Enter Pin Code">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 w-75 text-center">
+                            <span *ngIf="isValid('pinCode')" style="color: red;">Pin Code must be a 6 digit
+                                number</span>
+                        </div>
+
+                        <div class="col-12">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">State</mat-label>
+                                <mat-select formControlName="state" required>
+                                    <mat-option>State</mat-option>
+                                    <mat-option *ngFor="let state of state" [value]="state">
+                                        {{state}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">Name of City/Town/Village
+                                </mat-label>
+                                <mat-select formControlName="nameOfctv" required>
+                                    <mat-option>City/Town/Village</mat-option>
+                                    <mat-option *ngFor="let town of town" [value]="town">
+                                        {{town}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">Address
+                                </mat-label>
+                                <input matInput formControlName="address" required placeholder="Enter Pin Code">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12">
+                            <button class="float-right my-2" mat-raised-button type="submit"
+                                [disabled]="!residentialDetails.valid" (click)="onSubmit(2)">Save & Next></button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- ======Educational & Occupational Details======= -->
             <div *ngIf="loadForm.educationalOccupational">
@@ -152,43 +208,43 @@
                 <hr>
                 <div [formGroup]="eductaionalOccuptionalDetails">
                     <div class="row">
+                        <div class="col-12 text-center">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">Highest Education
+                                </mat-label>
+                                <input matInput formControlName="highestEducation" required placeholder="">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 text-center">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">Occuption</mat-label>
+                                <mat-select formControlName="occupation" required>
+                                    <mat-option>Occupation</mat-option>
+                                    <mat-option *ngFor="let occuption of occupations" [value]="occuption">
+                                        {{occuption}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 text-center">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">please add details
+                                </mat-label>
+                                <input matInput formControlName="pleaseAddDetails" required placeholder="">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 text-center">
+                            <mat-form-field appearance="fill" class="w-75">
+                                <mat-label style="font-weight: bold; color: forestgreen;">Income</mat-label>
+                                <mat-select formControlName="income" required>
+                                    <mat-option>Income Range(In Lakhs)</mat-option>
+                                    <mat-option *ngFor="let range of incomeRange" [value]="range">
+                                        {{range}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
                         <div class="col-12">
-                            <div class="col-12 text-center">
-                                <mat-form-field appearance="fill" class="w-75">
-                                    <mat-label style="font-weight: bold; color: forestgreen;">Highest Education
-                                    </mat-label>
-                                    <input matInput formControlName="highestEducation" required placeholder="">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-12 text-center">
-                                <mat-form-field appearance="fill" class="w-75">
-                                    <mat-label style="font-weight: bold; color: forestgreen;">Occuption</mat-label>
-                                    <mat-select formControlName="occupation" required>
-                                        <mat-option>Occupation</mat-option>
-                                        <mat-option *ngFor="let occuption of occupations" [value]="occuption">
-                                            {{occuption}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-12 text-center">
-                                <mat-form-field appearance="fill" class="w-75">
-                                    <mat-label style="font-weight: bold; color: forestgreen;">please add details
-                                    </mat-label>
-                                    <input matInput formControlName="pleaseAddDetails" required placeholder="">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-12 text-center">
-                                <mat-form-field appearance="fill" class="w-75">
-                                    <mat-label style="font-weight: bold; color: forestgreen;">Income</mat-label>
-                                    <mat-select formControlName="income" required>
-                                        <mat-option>Income Range(In Lakhs)</mat-option>
-                                        <mat-option *ngFor="let range of incomeRange" [value]="range">
-                                            {{range}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
                             <button class="float-right my-2" mat-raised-button type="submit"
                                 [disabled]="!eductaionalOccuptionalDetails.valid" (click)="onSubmit(3)">Save &
                                 Next></button>
