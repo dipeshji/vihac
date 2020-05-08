@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, DoCheck } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray, AbstractControl } from '@angular/forms';
 import { MAT_MOMENT_DATE_FORMATS, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -37,7 +37,7 @@ export const MY_FORMATS = {
   ],
 })
 
-export class SignupComponent implements OnInit, OnChanges {
+export class SignupComponent implements OnInit, OnChanges, DoCheck {
 
   userRegisterationForm = new FormArray([]);
   personalDetails: FormGroup;
@@ -45,10 +45,11 @@ export class SignupComponent implements OnInit, OnChanges {
   eductaionalOccuptionalDetails: FormGroup;
   uploadPhoto: FormGroup;
   imageURL: string;
-  allValid = false;
+  allValid = true;
   pinCodePattern = "[0-9]{6}";
   town = [];
   state = [];
+  it = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   spinner = false;
   bloodGroups = ["A-positive", "A-negative", "B-positive", "B-negative", "AB-positive", "AB-negative", "O-positive", "O-negative"];
   occupations = ["Job", "Bussiness", "House Wife", "Student"];
@@ -72,12 +73,13 @@ export class SignupComponent implements OnInit, OnChanges {
     "personalDetails": true,
     "residentialDetails": false,
     "educationalOccupational": false,
-    "uploadPhoto": false
+    "uploadPhoto": false,
+    "previewDetails": false
   }
 
   constructor(private formBuilder: FormBuilder, private register: RegisterService, private _snackBar: MatSnackBar, ) { }
 
-  ngOnChanges() { }
+
 
   ngOnInit(): void {
     this.personalDetails = this
@@ -86,7 +88,7 @@ export class SignupComponent implements OnInit, OnChanges {
         firstName: [null, [Validators.required]],
         middleName: [null, [Validators.required]],
         lastName: [null, [Validators.required]],
-        popularame: [null],
+        popularName: [null],
         dob: [null, [Validators.required]],
         birthTime: [null],
         birthPlace: [null],
@@ -115,7 +117,7 @@ export class SignupComponent implements OnInit, OnChanges {
       .group({
         highestEducation: [null, [Validators.required]],
         occupation: [null, [Validators.required]],
-        pleaseAddDetails: [null, [Validators.required]],
+        pleaseAddDetails: [{ value: null, disabled: true }, [Validators.required]],
         income: [null, [Validators.required]]
       })
 
@@ -126,6 +128,14 @@ export class SignupComponent implements OnInit, OnChanges {
       })
   }
 
+  ngOnChanges() { }
+  ngDoCheck() {
+    let value = this.eductaionalOccuptionalDetails.value.occupation;
+    if (value === "Job" || value === "Bussiness") {
+      this.eductaionalOccuptionalDetails.controls['pleaseAddDetails'].enable();
+
+    }
+  }
 
   activateForm(id) {
     if (id === 1) {
@@ -135,7 +145,9 @@ export class SignupComponent implements OnInit, OnChanges {
     } else if (id === 3) {
       this.setStatus('educationalOccupational');
     } else if (id === 4) {
-      this.setStatus('uploadPhoto')
+      this.setStatus('uploadPhoto');
+    } else {
+      this.setStatus('previewDetails');
     }
   }
 
@@ -174,14 +186,35 @@ export class SignupComponent implements OnInit, OnChanges {
       this.userRegisterationForm.push(this.residentialDetails);
     } else if (id === 3) {
       this.userRegisterationForm.push(this.eductaionalOccuptionalDetails);
-    } else if (id === 4) {
-      this.allFormsValid();
-      if (this.allValid) {
-        this.userRegisterationForm.push(this.personalDetails);
+    } else {
+      if (this.allFormsValid()) {
+        this.userRegisterationForm.push(this.uploadPhoto);
+        console.log(this.userRegisterationForm);
+        this.activateForm(id + 1);
+
+        // user image preview
+        const file = this.uploadPhoto.controls['userImage'].value;
+        this.uploadPhoto.patchValue({
+          userImage: file
+        });
+        this.uploadPhoto.get('userImage').updateValueAndValidity()
+
+        // File Preview
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imageURL = reader.result as string;
+        }
+        reader.readAsDataURL(file)
+
       }
     }
     if (id < 4) this.activateForm(id + 1);
 
+  }
+
+  editDetails() {
+    this.loadForm.previewDetails = false;
+    this.loadForm.personalDetails = true
   }
 
   setStatus(form) {
@@ -209,16 +242,19 @@ export class SignupComponent implements OnInit, OnChanges {
   }
 
   allFormsValid() {
-    this.personalDetails.valid && this.eductaionalOccuptionalDetails
-      ? this.allValid = false
-      : this.allValid = true;
-    setTimeout(() => {
-      this.allValid = false;
-    }, 5000)
+    this.personalDetails.valid && this.residentialDetails.valid && this.eductaionalOccuptionalDetails.valid
+      ? this.allValid = true
+      : this.allValid = false;
+
+    if (this.allValid) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   closeError() {
-    this.allValid = false;
+    this.allValid = !this.allValid;
   }
 
   isValid(controlName) {
@@ -249,7 +285,7 @@ export class SignupComponent implements OnInit, OnChanges {
           config.duration = 5000;
           config.panelClass = ['red-snackbar'];
           var msg = address.msg;
-          if(msg === undefined) msg = "Some error occured, please try again." 
+          if (msg === undefined) msg = "Some error occured, please try again."
           this._snackBar.open(msg, 'Close', config);
         }
 

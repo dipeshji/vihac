@@ -1,5 +1,5 @@
 <div class="jumbotron">
-    <div class="row">
+    <div class="row" *ngIf="!loadForm.previewDetails">
         <div class="col-4 col-sm-2 nav-bar">
             <ul class="pl-0 pt-4 navbar-nav">
                 <li class="nav-item" (click)="activateForm(1)"
@@ -52,7 +52,7 @@
                         <div class="col-12 text-center">
                             <mat-form-field appearance="fill" class="w-75">
                                 <mat-label style="font-weight: bold; color: forestgreen;">Popular Name</mat-label>
-                                <input matInput formControlName="popularame" placeholder="Enter popular name">
+                                <input matInput formControlName="popularName" placeholder="Enter popular name">
                             </mat-form-field>
                         </div>
                         <div class="col-12 text-center">
@@ -260,7 +260,7 @@
                     <div class="row">
                         <div class="col-12 col-sm-6">
                             <h4>Note: Profile photo size must be 1mb or less.</h4>
-                            <div class="imagePreview ml-2" *ngIf="imageURL && imageURL !== ''">
+                            <div class="ml-2 imagePreview" *ngIf="imageURL && imageURL !== ''" >
                                 <img [src]="imageURL" alt="Profile Image">
                             </div>
                             <div class="fileUpload btn btn-primary">
@@ -269,19 +269,205 @@
                             </div>
                         </div>
                         <div class="col-12"></div>
-                        <div *ngIf="allValid" class="col-12 col-sm-6 ml-sm-3 mt-2" [ngClass]="'error'">
+                        <div *ngIf="!allValid" class="col-12 col-sm-6 ml-sm-3 mt-2" [ngClass]="'error'">
                             <div class="pt-1 pb-1">
                                 <i class="fa fa-times-circle-o float-right" aria-hidden="true"
                                     (click)="closeError()"></i>
                                 <span>Please check your forms, Either you have not filled all required<span
-                                        style="color: red;">*</span> details or they might be
+                                        style="color: red;">*</span> details, or they might be
                                     invalid.</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <button class="float-right my-2" mat-raised-button type="submit" [disabled]="!uploadPhoto.valid"
-                    (click)="onSubmit(4)">Done</button>
+                    (click)="onSubmit(4)">Preview</button>
+            </div>
+        </div>
+    </div>
+    <!-- ==============Form Preview================== -->
+    <div class="row" *ngIf="loadForm.previewDetails">
+        <div class="col-12 text-center">
+            <p class="text-center mt-3" [ngClass]="'head'">Preview Details You Entered</p>
+            <hr>
+        </div>
+        <div class="col-4 text-center" [ngClass]="'userImg'">
+            <img  [src]="uploadPhoto.value.userImg" alt="Your Profile Image">
+        </div>
+        <div class="col-8">
+            <div class="row">
+                <div class="col-4">
+                    <span style="font-weight: bold;">First Name</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{personalDetails.value.firstName}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4">
+                    <span style="font-weight: bold;">Middle Name</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{personalDetails.value.middleName}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4">
+                    <span style="font-weight: bold;">Last Name</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{personalDetails.value.lastName}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4" *ngIf="personalDetails.value.popularName">
+                    <span style="font-weight: bold;">Popular Name</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8" *ngIf="personalDetails.value.popularName">
+                    <span>{{personalDetails.value.popularName}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4">
+                    <span style="font-weight: bold;">Date Of Birth</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{personalDetails.value.dob}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4" *ngIf="personalDetails.value.birthTime">
+                    <span style="font-weight: bold;">Birth Time</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8" *ngIf="personalDetails.value.birthTime">
+                    <span>{{personalDetails.value.birthTime}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4" *ngIf="personalDetails.value.birthPlace">
+                    <span style="font-weight: bold;">Birth Place</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8" *ngIf="personalDetails.value.birthPlace">
+                    <span>{{personalDetails.value.birthPlace}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4">
+                    <span style="font-weight: bold;">Gender</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{personalDetails.value.gender}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4">
+                    <span style="font-weight: bold;">Status</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{personalDetails.value.status}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4">
+                    <span style="font-weight: bold;">Mobile Number</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{personalDetails.value.mobileNumber}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4">
+                    <span style="font-weight: bold;">Email</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{personalDetails.value.emailId}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4">
+                    <span style="font-weight: bold;">Blood Group</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{personalDetails.value.bloodGroup}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4" *ngIf="personalDetails.value.height">
+                    <span style="font-weight: bold;">Height</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8" *ngIf="personalDetails.value.height">
+                    <span>{{personalDetails.value.height}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4">
+                    <span style="font-weight: bold;">Pin Code</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{residentialDetails.value.pinCode}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4">
+                    <span style="font-weight: bold;">State</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{residentialDetails.value.state}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4">
+                    <span style="font-weight: bold;">Name of City</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{residentialDetails.value.nameOfctv}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4">
+                    <span style="font-weight: bold;">Address</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{residentialDetails.value.address}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4">
+                    <span style="font-weight: bold;">Highest Education</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{eductaionalOccuptionalDetails.value.highestEducation}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4">
+                    <span style="font-weight: bold;">Occuption</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{eductaionalOccuptionalDetails.value.occupation}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4">
+                    <span style="font-weight: bold;">Occuption Details</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{eductaionalOccuptionalDetails.value.pleaseAddDetails}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-4">
+                    <span style="font-weight: bold;">Income</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-8">
+                    <span>{{eductaionalOccuptionalDetails.value.income}}</span>
+                    <hr style="background-color: pink;">
+                </div>
+                <div class="col-12">
+                    <button class="float-right mx-3" mat-raised-button color="accent">Submit</button>
+                    <button class="float-right" mat-raised-button color="primary" (click)="editDetails()">Edit Details</button>
+                </div>
             </div>
         </div>
     </div>
