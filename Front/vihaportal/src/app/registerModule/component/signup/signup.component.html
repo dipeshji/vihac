@@ -40,7 +40,8 @@
                         <div class="col-12 text-center">
                             <mat-form-field appearance="fill" class="w-75">
                                 <mat-label style="font-weight: bold; color: forestgreen;">Middle Name</mat-label>
-                                <input matInput formControlName="middleName" required placeholder="Enter middle">
+                                <input matInput formControlName="middleName" required
+                                    placeholder="Enter Fathers First Name">
                             </mat-form-field>
                         </div>
                         <div class="col-12 text-center">
@@ -58,7 +59,8 @@
                         <div class="col-12 text-center">
                             <mat-form-field appearance="fill" class="w-75">
                                 <mat-label style="font-weight: bold; color: forestgreen;">Date of Birth</mat-label>
-                                <input matInput [matDatepicker]="dp" formControlName="dob" placeholder="DD/MM/YYYY">
+                                <input matInput [matDatepicker]="dp" formControlName="dob" placeholder="MM/DD/YYYY"
+                                    required>
                                 <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                                 <mat-datepicker #dp></mat-datepicker>
                             </mat-form-field>
@@ -66,7 +68,7 @@
                         <div class="col-12 text-center">
                             <mat-form-field appearance="fill" class="w-75">
                                 <mat-label style="font-weight: bold; color: forestgreen;">Birth Time</mat-label>
-                                <input matInput formControlName="birthTime" placeholder="Enter Birth Time">
+                                <input matInput formControlName="birthTime" placeholder="ie. 02:10 AM or 02:10 PM">
                             </mat-form-field>
                         </div>
                         <div class="col-12 text-center">
@@ -114,6 +116,10 @@
                                 <input type="number" matInput formControlName="mobileNumber" required
                                     placeholder="Enter Mobile Number">
                             </mat-form-field>
+                            <div class="col-12 w-75 text-center">
+                                <span *ngIf="isValid('mobileNumber',1)" style="color: red;">Mobile number must be of 10
+                                    digit's</span>
+                            </div>
                         </div>
                         <div class="col-12 text-center">
                             <mat-form-field appearance="fill" class="w-75">
@@ -135,8 +141,13 @@
                         <div class="col-12 text-center">
                             <mat-form-field appearance="fill" class="w-75">
                                 <mat-label style="font-weight: bold; color: forestgreen;">Height</mat-label>
-                                <input matInput formControlName="height" required placeholder="ie. 5'2''">
+                                <input matInput formControlName="height" placeholder="ie. 5'2''">
                             </mat-form-field>
+                            <span>{{personalDetails.value.height}}</span>
+                        </div>
+                        <div class="col-12 w-75 text-center">
+                            <span *ngIf="isValid('height',1)" style="color: red;">Height must match the pattern
+                                mentioned(5'2").</span>
                         </div>
                     </div>
                     <button class="float-right my-2" mat-raised-button type="submit" [disabled]="!personalDetails.valid"
@@ -161,7 +172,7 @@
                             </mat-form-field>
                         </div>
                         <div class="col-12 w-75 text-center">
-                            <span *ngIf="isValid('pinCode')" style="color: red;">Pin Code must be a 6 digit
+                            <span *ngIf="isValid('pinCode',2)" style="color: red;">Pin Code must be a 6 digit
                                 number</span>
                         </div>
 
@@ -226,14 +237,15 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                        <div class="col-12 text-center">
+                        <div class="col-12 text-center" *ngIf="idControlEnable('pleaseAddDetails')">
                             <mat-form-field appearance="fill" class="w-75">
                                 <mat-label style="font-weight: bold; color: forestgreen;">please add details
                                 </mat-label>
-                                <input matInput formControlName="pleaseAddDetails" required placeholder="">
+                                <input matInput formControlName="pleaseAddDetails" required
+                                    placeholder="Occuption Details">
                             </mat-form-field>
                         </div>
-                        <div class="col-12 text-center">
+                        <div class="col-12 text-center" *ngIf="idControlEnable('income')">
                             <mat-form-field appearance="fill" class="w-75">
                                 <mat-label style="font-weight: bold; color: forestgreen;">Income</mat-label>
                                 <mat-select formControlName="income" required>
@@ -260,7 +272,7 @@
                     <div class="row">
                         <div class="col-12 col-sm-6">
                             <h4>Note: Profile photo size must be 1mb or less.</h4>
-                            <div class="ml-2 imagePreview" *ngIf="imageURL && imageURL !== ''" >
+                            <div class="ml-2 imagePreview" *ngIf="imageURL && imageURL !== ''">
                                 <img [src]="imageURL" alt="Profile Image">
                             </div>
                             <div class="fileUpload btn btn-primary">
@@ -292,7 +304,7 @@
             <hr>
         </div>
         <div class="col-4 text-center" [ngClass]="'userImg'">
-            <img  [src]="uploadPhoto.value.userImg" alt="Your Profile Image">
+            <img [src]="imageURL" alt="Your Profile Image">
         </div>
         <div class="col-8">
             <div class="row">
@@ -448,11 +460,11 @@
                     <span>{{eductaionalOccuptionalDetails.value.occupation}}</span>
                     <hr style="background-color: pink;">
                 </div>
-                <div class="col-4">
+                <div class="col-4" *ngIf="eductaionalOccuptionalDetails.value.pleaseAddDetails">
                     <span style="font-weight: bold;">Occuption Details</span>
                     <hr style="background-color: pink;">
                 </div>
-                <div class="col-8">
+                <div class="col-8" *ngIf="eductaionalOccuptionalDetails.value.pleaseAddDetails">
                     <span>{{eductaionalOccuptionalDetails.value.pleaseAddDetails}}</span>
                     <hr style="background-color: pink;">
                 </div>
@@ -465,8 +477,10 @@
                     <hr style="background-color: pink;">
                 </div>
                 <div class="col-12">
-                    <button class="float-right mx-3" mat-raised-button color="accent">Submit</button>
-                    <button class="float-right" mat-raised-button color="primary" (click)="editDetails()">Edit Details</button>
+                    <button class="float-right mx-3" mat-raised-button color="accent"
+                        (click)="submitForm()">Submit</button>
+                    <button class="float-right" mat-raised-button color="primary" (click)="editDetails()">Edit
+                        Details</button>
                 </div>
             </div>
         </div>

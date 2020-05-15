@@ -23,4 +23,13 @@ export class RegisterService {
         params: Params
       });
   }
+  registerUser(userData): Observable<any> {
+    let Headers = new HttpHeaders();
+    Headers.append('Content-Type', 'application/json');
+    return this.http.post(`${this.rootURL}/registerUser/register`, userData,
+      {
+        headers: Headers
+      }
+    )
+  }
 }
